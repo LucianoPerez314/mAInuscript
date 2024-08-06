@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo No test made yet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Luciano-Perez-Narrative-Generator"
+  },
+  "author": "Luciano Perez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2"
+  }
+}
