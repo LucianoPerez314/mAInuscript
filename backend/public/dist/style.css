@@ -1,0 +1,548 @@
+:root {
+  --color1: #f70776;
+  --color2: #c3195d;
+  --color3:  #680747;
+  --color4: #141010;
+}
+
+* {
+  color: white;
+}
+
+#main {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-size: cover; /* Ensures the image covers the entire area */
+  background-position: center; /* Centers the image */
+}
+
+
+/* Define the navbar.*/
+
+#navbar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100vw;
+  height: 4rem;
+  background-color: rgba(0,0,0,0.4);
+  padding-left: 1rem;
+  z-index: 10; /* Should be max z-index */
+}
+
+#navbar nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#navbar nav ul li {
+    margin: 0 15px;
+}
+
+#navbar nav a, nav a:hover {
+  font-size: 22px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+/* Animates line */
+#navbar nav a::before{
+  content: "";
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  transition: 0.5s transform ease;
+  transform: scale3d(0,1,1);
+  transform-origin: 100%;
+}
+
+#navbar nav a:hover::before{
+  transform: scale3d(1,1,1);
+  transform-origin: 0% 100%;
+}
+
+/* Start button styling.*/
+
+#start-btn {
+  font-size: 2rem;
+  width: 10rem;
+  background-color: transparent;
+  border: 2px solid white; 
+  border-radius: 20px;
+  letter-spacing: 2px;
+  font-family: Trebuchet MS, sans-serif;
+  transition: all .5s ease;
+  mix-blend-mode: screen; 
+}
+
+#start-btn:hover {
+  color: #001F3F;
+  background-color: #fff;
+  padding: .3rem .5rem .3rem .5rem;
+}
+
+/* CSS Transition classes ffrom initial view to chat UI*/
+.generic-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.generic-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.generic-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.generic-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 300ms, transform 300ms;
+}
+/*Chat UI styling */
+
+#chatUI {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 80vh;
+  position: absolute;
+  bottom: 5%;
+}
+
+#chatUI .lds-ellipsis {
+  left: 0%;
+}
+
+#messages {
+  width: 60vw;
+  resize: none;
+  font-family: Palatino, URW Palladio L, serif;
+  font-size: 20px;
+  height: auto;
+  margin-bottom: 3em;
+  border: none;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 10px;
+  padding: 1em;
+  transition: all .5s ease;
+}
+
+#inputs {
+  display: flex;
+}
+
+#inputs button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  margin-left: 1rem;
+  border: none;
+  transition: all .5s ease;
+}
+
+#inputs button:hover {
+  background: rgba(0,0,0,0.7);
+  padding: 1.8rem;
+}
+
+#messageInput {
+  background: rgba(0,0,0,0.5);
+  color: #DCDCDC;
+  width: 60vw;
+  border-radius: 10px;
+  opacity: 80%;
+  padding: 1em;
+  resize: none;
+  max-height: 10vh;
+  font-family: Palatino, URW Palladio L, serif;
+  font-size: 18px;
+  border: none;
+  margin-left: 8rem;
+  transition: all .5s ease;
+}
+
+#messageInput:focus {
+  outline: none;
+  background: rgba(0,0,0,0.7);
+}
+
+#messageInput::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Message input scrollbar styles */
+#messageInput::-webkit-scrollbar {
+  width: .5em; /* Width of the scrollbar */
+}
+
+#messageInput::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#messageInput::-webkit-scrollbar-thumb {
+  background: #DCDCDC; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+#messageInput::-webkit-scrollbar-thumb:hover {
+  background: #D3D3D3; /* Color of the scrollbar thumb on hover */
+}
+
+#messageInput::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#messages:focus {
+  outline: none;
+}
+
+#messages:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+
+/* WebKit scrollbar styles */
+#messages::-webkit-scrollbar {
+  width: .5em; /* Width of the scrollbar */
+}
+
+#messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#messages::-webkit-scrollbar-thumb {
+  background: #DCDCDC; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+  background: #D3D3D3; /* Color of the scrollbar thumb on hover */
+}
+
+
+/* Loading icon*/
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ellipsis,
+.lds-ellipsis div {
+  box-sizing: border-box;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 33.33333px;
+  width: 13.33333px;
+  height: 13.33333px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+/* Login page styling*/
+.loginSignUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  min-width: 17rem;
+  width: 30vw;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.loginSignUp form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginSignUp input {
+  border-radius: 5px;
+  border: none;
+  width: 25vw;
+  min-width: 10rem;
+  padding: .2rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  color: black;
+}
+
+.loginSignUp a {
+  margin-bottom: 1rem;
+}
+
+.loginSignUp input[type="submit"] {
+  min-width: 5rem;
+  max-width: 10rem;
+  background-color: transparent;
+  border: 2px solid white; 
+  border-radius: 10px;
+  padding: .2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: color .5s ease, background-color .5s ease, padding .5s ease;
+  letter-spacing: 2px;
+  font-family: Trebuchet MS, sans-serif;
+  color: white;
+}
+
+.loginSignUp input[type="submit"]:hover {
+  color: #001F3F;
+  background-color: #fff;
+  padding: .3rem;
+}
+
+.loginSignUp a:hover {
+  cursor: pointer;
+}
+
+.loginSignUp input:focus {
+  outline: none;
+}
+
+.loginSignUp h2 {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+
+.loginSignUp form .lds-ellipsis {
+  left: 0%;
+}
+
+
+/* Library section styling*/
+.item {
+  width: 200px;
+  height: 300px;
+  list-style-type: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 30px rgba(255,255,255,0.3) inset;
+  transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
+
+  &:nth-child(1), &:nth-child(2) {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  &:nth-child(3) { left: 50%; }
+  &:nth-child(4) { left: calc(50% + 220px); }
+  &:nth-child(5) { left: calc(50% + 440px); }
+  &:nth-child(6) { left: calc(50% + 660px); }
+  
+  &:nth-child(n + 6) { opacity: 0; }
+}
+
+.content {
+  width: min(30vw,400px);
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: translateY(-50%);
+  font: 400 0.85rem helvetica,sans-serif;
+  color: white;
+  text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  opacity: 0;
+  display: none;
+  
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1em;
+  border-radius: 10px;
+
+  & .title {
+    font-family: 'arial-black';
+    text-transform: uppercase;
+  }
+
+  & .description {
+    line-height: 1.7;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  & button {
+    width: fit-content;
+    background-color: rgba(0,0,0,0.1);
+    color: white;
+    border: 2px solid white;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    
+    transition: all .5s ease;
+  }
+  
+  & button:hover {
+    color: #001F3F;
+    background-color: #fff;
+    padding: .9rem;
+  }
+}
+
+.content:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transition: all .5s ease;
+}
+
+.item:nth-of-type(2) .content {
+  display: block;
+  animation: show 0.75s ease-in-out 0.3s forwards;
+}
+
+@keyframes show {
+  0% {
+    filter: blur(5px);
+    transform: translateY(calc(-50% + 75px));
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.nav {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  user-select: none;
+
+  & .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+    height: 3rem;
+    width: 3rem;
+    margin: 0 0.25rem;
+    border-radius: 100%;
+    transition: all .5s ease;
+    font-size: 30px;
+
+    &:hover {
+      background: rgba(0,0,0,0.6);
+      padding: 2rem;
+    }
+  }
+}
+
+@media (width > 650px) and (width < 900px) {
+  .content {
+    & .title        { font-size: 1rem; }
+    & .description  { font-size: 0.7rem; }
+    & button        { font-size: 0.7rem; }
+  }
+  .item {
+    width: 160px;
+    height: 270px;
+
+    &:nth-child(3) { left: 50%; }
+    &:nth-child(4) { left: calc(50% + 170px); }
+    &:nth-child(5) { left: calc(50% + 340px); }
+    
+     &:nth-child(n + 5) { opacity: 0; }
+  }
+}
+
+@media (width < 650px) {
+  .content {
+    & .title        { font-size: 0.9rem; }
+    & .description  { font-size: 0.65rem; }
+    & button        { font-size: 0.7rem; }
+  }
+  .item {
+    width: 130px;
+    height: 220px;
+
+    &:nth-child(3) { left: 50%; }
+    &:nth-child(4) { left: calc(50% + 140px); }
+    &:nth-child(n + 4) { opacity: 0; }
+
+  }
+}
