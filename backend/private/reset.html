@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Reset Password</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div>
+            <h2>Reset your password</h2>
+            <form id="myForm">
+                <label>
+                    <label for="new-password">New Password:</label>
+                    <input input type="password" id="new-password" name="newPassword" required/>
+                    <br>
+                    <label for="confirm-new-password">Enter your password:</label>
+                    <input input type="password" id="confirm-new-password" name="confirmNewPassword" required/>
+                    <br>
+                    <input type="submit" value="Continue"/>
+                </label>
+            </form>
+        </div>
+        <style>
+            * {
+                color: white;
+                font-family: Trebuchet MS, sans-serif;
+            }
+
+            body {
+                width: 100vw;
+                height: 100vh;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-repeat: no-repeat; /* Prevents the image from repeating */
+                background-size: cover; /* Ensures the image covers the entire area */
+                background-position: center; /* Centers the image */
+                background-image: url(https://preview.redd.it/0skmx6yuddw21.jpg?auto=webp&s=6387a5516a404d0879784f917815b8a910c8a25c);
+            }
+            
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(0,0,0,0.4);
+                min-width: 17rem;
+                width: 30vw;
+                border-radius: 15px;
+                text-align: center;
+            }
+
+            div form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            div input {
+                border-radius: 5px;
+                border: none;
+                width: 25vw;
+                min-width: 10rem;
+                padding: .2rem;
+                margin-top: .5rem;
+                margin-bottom: .5rem;
+                color: black;
+            }
+
+            div input[type="submit"] {
+                min-width: 5rem;
+                max-width: 10rem;
+                background-color: transparent;
+                border: 2px solid white; 
+                border-radius: 10px;
+                padding: .2rem;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                transition: color .5s ease, background-color .5s ease, padding .5s ease;
+                letter-spacing: 2px;
+                font-family: Trebuchet MS, sans-serif;
+                color: white;
+            }
+
+            div input[type="submit"]:hover {
+                color: #001F3F;
+                background-color: #fff;
+                padding: .3rem;
+            }
+
+            div input:focus {
+                outline: none;
+            }
+
+            div h2 {
+                margin-bottom: 1rem;
+                margin-top: 1rem;
+            }
+        </style>
+        <script>
+            // Select the form element
+            const form = document.getElementById('myForm');
+
+            let token;
+
+            document.addEventListener('DOMContentLoaded', () => {
+              // Extract the token from the query parameters
+              const urlParams = new URLSearchParams(window.location.search);
+              token = urlParams.get('token');
+            });
+
+            // Add event listener for the 'submit' event
+            form.addEventListener('submit', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Handle the form submission
+                const newPassword = event.target.newPassword.value;
+                const confirmNewPassword = event.target.confirmNewPassword.value;
+                console.log('newPassword:', newPassword);
+                console.log('confirmNewPassword:', confirmNewPassword);
+                if (newPassword === confirmNewPassword && token) {
+                    const jsonReq = {token: token, newPassword: newPassword};
+                    fetch('http://localhost:3000/user/resetPassword', 
+                        {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(jsonReq)
+                    }).then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                            return response.json();
+                    }).then(data => {console.log("Logged In"); return data;
+                    }).catch(error => {
+                        console.error('There has been a problem with your fetch operation:', error);
+                    });
+                }
+                // You can also send this data to the server via fetch or XHR
+            });
+        </script>
+    </body>
+</html>
