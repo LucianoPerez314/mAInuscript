@@ -16,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 /*
 TODO: handle errors.
+TODO: Add route to frontend main page.
 */ 
 
 // Database stuff
@@ -453,7 +454,12 @@ const loadResetPasswordPageHandler =  async (req, res) => {
   if(isValid) {
     //Display reset password page.
     console.log("Redirecting to reset password page...");
-    res.sendFile(path.join(__dirname, 'private', 'reset.html'));
+    res.sendFile(path.join(__dirname, 'private', 'reset.html'), (err) => {
+      if (err) {
+        console.error("Error loading reset password page:", err);
+        res.status(500).send("Internal Server Error");
+      }
+    });
   }
 }
 
@@ -463,7 +469,16 @@ const resetPasswordHandler = async (req, res) => {
   const token = req.body.token;
   console.log("Updating password to:", newPassword, "using token:", token);
   await updatePasswordInDatabase(newPassword, token);
-  //Redirect to main page or send a message confirming password reset.
+}
+
+const mainPageHandler = async (req, res) => {
+  console.log("Handling loading main page request...", req.body);
+  res.sendFile(path.join(__dirname, 'public/dist', 'index.html'), (err) => {
+    if (err) {
+      console.error("Error loading main page:", err);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 }
 
 
@@ -649,6 +664,8 @@ app.get("/user/loadResetPasswordPage", loadResetPasswordPageHandler);
 app.post("/user/resetPassword", resetPasswordHandler);
 
 app.delete("/user", deleteUserHandler);
+
+app.get("/", mainPageHandler)
 
 
 
